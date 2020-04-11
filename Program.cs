@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using System.Linq;
 
@@ -47,14 +48,20 @@ namespace polypolServer
 #endregion
 
 
-            var tempCityBranches = cityBranches.ToDictionary(entry => entry.Key, entry => entry.Value);
+            List<Branch> updatedBranches = new List<Branch>();
 
             foreach (var item in cityBranches)
             {
-                tempCityBranches[item.Key] = Calculator.CalculateProfit(item.Value, item.Key);
+                updatedBranches.AddRange(Calculator.CalculateProfit(item.Value, item.Key));
             }
 
-            cityBranches = tempCityBranches;
+            foreach (var branch in updatedBranches)
+            {
+                System.Console.WriteLine($"Updating branch in {branch.city}. Made a profit of ${branch.profit[branch.profit.Count - 1]}");
+                var update = Builders<BsonDocument>.Update.Set("profit", branch.profit);
+                var filter = Builders<BsonDocument>.Filter.Eq("_id", branch.id);
+                branchesBson.UpdateOne(filter, update);
+            }        
         }
     }
 }
