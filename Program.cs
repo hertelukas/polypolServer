@@ -12,12 +12,16 @@ namespace polypolServer
     {
         static void Main(string[] args)
         {
-#region Getting all data
             MongoClient dbClient = new MongoClient("mongodb+srv://admin:Fz05cKoP4PPx@polypol-i4wle.mongodb.net/test?retryWrites=true&w=majority");
-
-            var dbList = dbClient.ListDatabaseNames().ToList();
-
             var database = dbClient.GetDatabase("test");
+
+            UpdateBranches(database);
+        }
+
+        private static void UpdateBranches(IMongoDatabase database){
+
+            //Downloading all the data
+
             var branchesBson = database.GetCollection<BsonDocument>("branches");
             var branchesBsonList = branchesBson.Find(new BsonDocument()).ToList();
 
@@ -45,7 +49,6 @@ namespace polypolServer
                 location.Remove("branches");
                 Calculator.locations.Add(BsonSerializer.Deserialize<Location>(location));
             }
-#endregion
 
 
             List<Branch> updatedBranches = new List<Branch>();
@@ -61,7 +64,7 @@ namespace polypolServer
                 var update = Builders<BsonDocument>.Update.Set("profit", branch.profit);
                 var filter = Builders<BsonDocument>.Filter.Eq("_id", branch.id);
                 branchesBson.UpdateOne(filter, update);
-            }        
+            }     
         }
     }
 }

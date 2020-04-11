@@ -34,7 +34,16 @@ namespace polypolServer{
                     //Log Error
                 }
 
-                branch.profit.Add((value * tempStars).ToString());
+                float supply = Math.Clamp((float)demand/int.Parse(branch.beds),0,1);
+                if(supply > 1){
+                    supply *= 1.75f;
+                }
+
+                float factor = 0.25f * value + 1.5f * tempStars * value;
+
+                System.Console.WriteLine($"Factor is {factor} and supply is {supply}");
+
+                branch.profit.Add((0.2 * (int.Parse(branch.beds) * factor * supply - 0.3f * int.Parse(branch.beds) * factor)).ToString());
             }
 
             PlotCity(city, beds, demand);
