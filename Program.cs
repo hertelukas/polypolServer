@@ -12,16 +12,25 @@ namespace polypolServer
     {
         static void Main(string[] args)
         {
+            var timer = new System.Timers.Timer(30 * 1000);
+            timer.Elapsed += new System.Timers.ElapsedEventHandler(OnTimedEvent);
+            timer.Start();
+
+            Console.ReadLine();
+        }
+
+        private static void OnTimedEvent(object source, System.Timers.ElapsedEventArgs e){
+            Data.NewCalculation();
+            Calculator.profits.Clear();
             MongoClient dbClient = new MongoClient("mongodb+srv://admin:Fz05cKoP4PPx@polypol-i4wle.mongodb.net/test?retryWrites=true&w=majority");
             var database = dbClient.GetDatabase("test");
-
             UpdateBranches(database);
+            UpdateUsers(database);
         }
 
         private static void UpdateBranches(IMongoDatabase database){
 
             //Downloading all the data
-
             var branchesBson = database.GetCollection<BsonDocument>("branches");
             var branchesBsonList = branchesBson.Find(new BsonDocument()).ToList();
 
@@ -60,7 +69,6 @@ namespace polypolServer
 
             foreach (var branch in updatedBranches)
             {
-                System.Console.WriteLine($"Updating branch in {branch.city}. Made a profit of ${branch.profit[branch.profit.Count - 1]}");
                 var updateProfit = Builders<BsonDocument>.Update.Set("profit", branch.profit);
                 var filter = Builders<BsonDocument>.Filter.Eq("_id", branch.id);
                 branchesBson.UpdateOne(filter, updateProfit);
@@ -69,6 +77,58 @@ namespace polypolServer
                 branchesBson.UpdateOne(filter, updateLabel);
 
             }     
+        }
+
+        private static void UpdateUsers(IMongoDatabase database){
+            var usersBson = database.GetCollection<BsonDocument>("users");
+            var usersBsonList = usersBson.Find(new BsonDocument()).ToList();
+
+            List<User> users = new List<User>();
+
+            foreach (var doc in usersBsonList)
+            {
+                doc.Remove("mail");
+                doc.Remove("username");
+                doc.Remove("mailConfirmed");
+                doc.Remove("currentCode");
+                doc.Remove("salt");
+                doc.Remove("hash");
+                doc.Remove("__v");
+                users.Add(BsonSerializer.Deserialize<User>(doc));
+            }
+
+            foreach (var user in users)
+            {
+                float tempProfit = 0;
+
+                foreach (var branch in user.branches)
+                {
+                    tempProfit += Calculator.profits.GetValueOrDefault(branch);
+                    System.Console.WriteLine($"Profit is now set to: {tempProfit}");
+                }
+
+
+                user.profit.Add(tempProfit.ToString());
+                user.labels.Add(Data.GetDate());
+                float cash;
+
+                if(!float.TryParse(user.cash, out cash)){
+                    //Log Error
+                }
+                cash += tempProfit;
+                user.cash = cash.ToString();
+
+                var filter = Builders<BsonDocument>.Filter.Eq("_id", user.id);
+                var updateCash = Builders<BsonDocument>.Update.Set("cash", user.cash);
+                usersBson.UpdateOne(filter, updateCash);
+
+                var updateLabel = Builders<BsonDocument>.Update.Set("labels", user.labels);
+                usersBson.UpdateOne(filter, updateLabel);
+
+                var updateProfit = Builders<BsonDocument>.Update.Set("profit", user.profit);
+                usersBson.UpdateOne(filter, updateProfit);
+
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ namespace polypolServer{
 
 
         public static List<Location> locations = new List<Location>();
+        public static Dictionary<MongoDB.Bson.ObjectId, float> profits = new Dictionary<MongoDB.Bson.ObjectId, float>();
         public static List<Branch> CalculateProfit(List<Branch> branches, string city){
             Location location = locations.Find(x => x.city == city);
 
@@ -61,10 +62,11 @@ namespace polypolServer{
                 float factor = 0.25f * value + 1.5f * tempStars * value;
 
 
-                System.Console.WriteLine($"Factor is {factor} and supply is {supply}");
+                float profit = 0.2f * (tempBeds * factor * supply - 0.3f * tempBeds * factor * supplyFine);
 
-                branch.profit.Add((0.2 * (tempBeds * factor * supply - 0.3f * tempBeds * factor * supplyFine)).ToString());
+                branch.profit.Add(profit.ToString());
                 branch.lables.Add(Data.GetDate());
+                profits.Add(branch.id, profit);
             }
 
             PlotCity(city, beds, demand);
