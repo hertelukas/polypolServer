@@ -61,9 +61,13 @@ namespace polypolServer
             foreach (var branch in updatedBranches)
             {
                 System.Console.WriteLine($"Updating branch in {branch.city}. Made a profit of ${branch.profit[branch.profit.Count - 1]}");
-                var update = Builders<BsonDocument>.Update.Set("profit", branch.profit);
+                var updateProfit = Builders<BsonDocument>.Update.Set("profit", branch.profit);
                 var filter = Builders<BsonDocument>.Filter.Eq("_id", branch.id);
-                branchesBson.UpdateOne(filter, update);
+                branchesBson.UpdateOne(filter, updateProfit);
+
+                var updateLabel = Builders<BsonDocument>.Update.Set("lables", branch.lables);
+                branchesBson.UpdateOne(filter, updateLabel);
+
             }     
         }
     }

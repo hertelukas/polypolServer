@@ -4,6 +4,7 @@ using System;
 namespace polypolServer{
     public static class Calculator{
 
+
         public static List<Location> locations = new List<Location>();
         public static List<Branch> CalculateProfit(List<Branch> branches, string city){
             Location location = locations.Find(x => x.city == city);
@@ -33,34 +34,53 @@ namespace polypolServer{
                 if(!int.TryParse(branch.stars, out tempStars)){
                     //Log Error
                 }
+            }
 
-                float supply = Math.Clamp((float)demand/int.Parse(branch.beds),0,1);
-                if(supply > 1){
-                    supply *= 1.75f;
+            foreach (var branch in branches)
+            {
+                int tempStars = 0;
+                int tempBeds = 0;
+
+                if(!int.TryParse(branch.beds, out tempBeds)){
+                    //Log Error
+                }
+
+                if(!int.TryParse(branch.stars, out tempStars)){
+                    //Log Error
+                }  
+
+                float supply = Math.Clamp((float)demand/beds,0,1);
+
+
+                float supplyFine = 1;
+
+                if((float)demand/beds < 1){
+                    supplyFine = (float)beds/demand;
                 }
 
                 float factor = 0.25f * value + 1.5f * tempStars * value;
 
+
                 System.Console.WriteLine($"Factor is {factor} and supply is {supply}");
 
-                branch.profit.Add((0.2 * (int.Parse(branch.beds) * factor * supply - 0.3f * int.Parse(branch.beds) * factor)).ToString());
+                branch.profit.Add((0.2 * (tempBeds * factor * supply - 0.3f * tempBeds * factor * supplyFine)).ToString());
+                branch.lables.Add(Data.GetDate());
             }
 
             PlotCity(city, beds, demand);
-
             return branches;
         }
 
         private static void PlotCity(string city, int beds, int demand){
             System.Console.WriteLine($"{city}: \nBeds:   {beds} \nDemand: {demand}");    
 
-            if((float)beds/demand > 1){
+            if((float)demand/beds < 1){
                 Console.ForegroundColor = ConsoleColor.Red;
             }else{
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
             }
 
-            System.Console.WriteLine($"Supply: {(float)beds/demand * 100}%\n");
+            System.Console.WriteLine($"Supply: {(float)demand/beds * 100}%\n");
 
             Console.ForegroundColor = ConsoleColor.White;
         }
