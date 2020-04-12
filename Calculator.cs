@@ -105,7 +105,7 @@ namespace polypolServer{
 
                 Random rnd = new Random();
 
-                float profit = 0.2f * (tempBeds * factor * supply - 0.3f * tempBeds * factor * supplyFine) * (float)(rnd.NextDouble() / 4 + 0.875);
+                float profit = 0.2f * (tempBeds * factor * supply - 0.3f * tempBeds * factor * supplyFine) * (float)(rnd.NextDouble() / 10 + 0.95);
 
                 branch.profit.Add(profit.ToString());
                 branch.lables.Add(Data.GetDate());
