@@ -79,6 +79,8 @@ namespace polypolServer{
                 }
             }
 
+            Random rnd = new Random();
+
             foreach (var branch in branches)
             {
                 int tempStars = 0;
@@ -103,7 +105,6 @@ namespace polypolServer{
 
                 float supply = Math.Clamp((float)demand/beds,0,1);
 
-                Random rnd = new Random();
 
                 float profit = 0.2f * (tempBeds * factor * supply - 0.3f * tempBeds * factor * supplyFine) * (float)(rnd.NextDouble() / 10 + 0.95);
 
