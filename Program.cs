@@ -12,7 +12,13 @@ namespace polypolServer
     {
         static void Main(string[] args)
         {
-            float minutes = 0.5f;
+            Console.WriteLine("Update rate of the server: ");
+            float minutes = 30f;
+            while(!float.TryParse(Console.ReadLine(), out minutes)){
+                Console.WriteLine("Input invalid.");
+            }
+            System.Console.WriteLine("Updating every " + minutes + " minutes");
+
             var timer = new System.Timers.Timer(minutes * 60 * 1000);
             timer.Elapsed += new System.Timers.ElapsedEventHandler(OnTimedEvent);
             timer.Start();
