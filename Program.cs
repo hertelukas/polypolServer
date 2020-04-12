@@ -12,9 +12,11 @@ namespace polypolServer
     {
         static void Main(string[] args)
         {
-            var timer = new System.Timers.Timer(30 * 1000);
+            float minutes = 0.5f;
+            var timer = new System.Timers.Timer(minutes * 60 * 1000);
             timer.Elapsed += new System.Timers.ElapsedEventHandler(OnTimedEvent);
             timer.Start();
+            OnTimedEvent(null, null);
 
             Console.ReadLine();
         }
@@ -104,7 +106,6 @@ namespace polypolServer
                 foreach (var branch in user.branches)
                 {
                     tempProfit += Calculator.profits.GetValueOrDefault(branch);
-                    System.Console.WriteLine($"Profit is now set to: {tempProfit}");
                 }
 
 
