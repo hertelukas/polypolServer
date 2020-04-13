@@ -113,6 +113,8 @@ namespace polypolServer{
                 profits.Add(branch.id, profit);
             }
 
+            location.beds = beds;
+
             PlotCity(city, beds, demand);
             return branches;
         }
@@ -130,6 +132,7 @@ namespace polypolServer{
 
             Console.ForegroundColor = ConsoleColor.White;
         }
+
     }
 
 }

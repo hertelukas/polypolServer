@@ -33,6 +33,7 @@ namespace polypolServer
             MongoClient dbClient = new MongoClient("mongodb+srv://admin:Fz05cKoP4PPx@polypol-i4wle.mongodb.net/test?retryWrites=true&w=majority");
             var database = dbClient.GetDatabase("test");
             UpdateBranches(database);
+            UpdateLocations(database);
             UpdateUsers(database);
         }
 
@@ -85,6 +86,17 @@ namespace polypolServer
                 branchesBson.UpdateOne(filter, updateLabel);
 
             }     
+        }
+
+        private static void UpdateLocations(IMongoDatabase database){
+            var locationsBson = database.GetCollection<BsonDocument>("locations");
+
+            foreach (var location in Calculator.locations)
+            {
+                var updateBeds = Builders<BsonDocument>.Update.Set("beds", location.beds);
+                var filter = Builders<BsonDocument>.Filter.Eq("_id", location.id);
+                locationsBson.UpdateOne(filter, updateBeds);
+            }
         }
 
         private static void UpdateUsers(IMongoDatabase database){

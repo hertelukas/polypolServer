@@ -10,6 +10,7 @@ namespace polypolServer{
         public string city { get; set; }
         public string visitors { get; set; }
         public string value { get; set; }
+        public int beds { get; set; }
         public int __v { get; set; }
     }
 }
