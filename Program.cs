@@ -114,6 +114,7 @@ namespace polypolServer
                 doc.Remove("salt");
                 doc.Remove("hash");
                 doc.Remove("__v");
+                doc.Remove("chainName");
                 users.Add(BsonSerializer.Deserialize<User>(doc));
             }
 

@@ -59,13 +59,14 @@ namespace polypolServer{
             }
             demand *= monthBonus;
 
+            //TODO write Logging script
+
             if(!int.TryParse(location.value, out value)){
                 //Log Error
             }
 
             foreach (var branch in branches)
             {
-                int tempStars = 0;
                 int tempBeds = 0;
                 if(int.TryParse(branch.beds, out tempBeds)){
                     beds += tempBeds;
@@ -74,9 +75,6 @@ namespace polypolServer{
                     //Log Error
                 }
 
-                if(!int.TryParse(branch.stars, out tempStars)){
-                    //Log Error
-                }
             }
 
             Random rnd = new Random();
@@ -85,12 +83,17 @@ namespace polypolServer{
             {
                 int tempStars = 0;
                 int tempBeds = 0;
+                float priceFactor = 1;
 
                 if(!int.TryParse(branch.beds, out tempBeds)){
                     //Log Error
                 }
 
                 if(!int.TryParse(branch.stars, out tempStars)){
+                    //Log Error
+                }
+
+                if(!float.TryParse(branch.priceFactor, out priceFactor)){
                     //Log Error
                 }
 
@@ -105,8 +108,14 @@ namespace polypolServer{
 
                 float supply = Math.Clamp((float)demand/beds,0,1);
 
+                if(priceFactor < 0.4f){
+                    priceFactor = 1;
+                }
 
-                float profit = 0.2f * (tempBeds * factor * supply - 0.3f * tempBeds * factor * supplyFine) * (float)(rnd.NextDouble() / 10 + 0.95);
+                System.Console.WriteLine($"Price factor is set to " + priceFactor);
+
+
+                float profit = 0.2f * (tempBeds * factor * supply - (float)Math.Pow(priceFactor, 2) * 0.3f * tempBeds * factor * supplyFine) * (float)(rnd.NextDouble() / 10 + 0.95) * priceFactor;
 
                 branch.profit.Add(profit.ToString());
                 branch.lables.Add(Data.GetDate());
