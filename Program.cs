@@ -85,6 +85,12 @@ namespace polypolServer
                 var updateLabel = Builders<BsonDocument>.Update.Set("lables", branch.lables);
                 branchesBson.UpdateOne(filter, updateLabel);
 
+                var updateStaff = Builders<BsonDocument>.Update.Set("staff", branch.staff);
+                branchesBson.UpdateOne(filter, updateStaff);
+
+                var updateInterior = Builders<BsonDocument>.Update.Set("interior", branch.interior);
+                branchesBson.UpdateOne(filter, updateInterior);
+
             }     
         }
 
@@ -122,7 +128,7 @@ namespace polypolServer
 
             foreach (var user in users)
             {
-                float tempProfit = 0;
+                double tempProfit = 0;
 
                 foreach (var branch in user.branches)
                 {
@@ -132,9 +138,9 @@ namespace polypolServer
 
                 user.profit.Add(tempProfit.ToString());
                 user.labels.Add(Data.GetDate());
-                float cash;
+                double cash;
 
-                if(!float.TryParse(user.cash, out cash)){
+                if(!double.TryParse(user.cash, out cash)){
                     //Log Error
                 }
                 cash += tempProfit;

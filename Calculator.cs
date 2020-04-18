@@ -6,7 +6,7 @@ namespace polypolServer{
 
 
         public static List<Location> locations = new List<Location>();
-        public static Dictionary<MongoDB.Bson.ObjectId, float> profits = new Dictionary<MongoDB.Bson.ObjectId, float>();
+        public static Dictionary<MongoDB.Bson.ObjectId, double> profits = new Dictionary<MongoDB.Bson.ObjectId, double>();
         public static List<Branch> CalculateProfit(List<Branch> branches, string city){
             Location location = locations.Find(x => x.city == city);
 
@@ -112,13 +112,17 @@ namespace polypolServer{
                     priceFactor = 1;
                 }
 
-                System.Console.WriteLine($"Price factor is set to " + priceFactor);
+                double staffExpenses = tempBeds * (Math.Sqrt(tempStars + 1) * 20);
+                double interiorExpenses = tempBeds * (Math.Pow(tempStars, 0.3) * 3);
 
 
-                float profit = 0.2f * (tempBeds * factor * supply - (float)Math.Pow(priceFactor, 2) * 0.3f * tempBeds * factor * supplyFine) * (float)(rnd.NextDouble() / 10 + 0.95) * priceFactor;
+                double profit = 0.2f * (tempBeds * factor * supply - Math.Pow(priceFactor, 2) * 0.3f * tempBeds * factor * supplyFine) * 
+                (rnd.NextDouble() / 10 + 0.95) * priceFactor - staffExpenses - interiorExpenses;
 
                 branch.profit.Add(profit.ToString());
                 branch.lables.Add(Data.GetDate());
+                branch.staff.Add(staffExpenses.ToString());
+                branch.interior.Add(interiorExpenses.ToString());
                 profits.Add(branch.id, profit);
             }
 
