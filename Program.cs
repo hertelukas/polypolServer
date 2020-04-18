@@ -115,6 +115,8 @@ namespace polypolServer
                 doc.Remove("hash");
                 doc.Remove("__v");
                 doc.Remove("chainName");
+                doc.Remove("resetPasswordToken");
+                doc.Remove("resetPasswordExpires");
                 users.Add(BsonSerializer.Deserialize<User>(doc));
             }
 
