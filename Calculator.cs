@@ -11,12 +11,9 @@ namespace polypolServer{
             Location location = locations.Find(x => x.city == city);
 
             int beds = 0;
-            float demand = 0;
-            int value = 0;
+            float demand = location.visitors;
+            int value = location.value;
 
-            if(!float.TryParse(location.visitors, out demand)){
-                //Log Error
-            }
             float monthBonus = 1f;
 
             switch (Data.GetMonth())
@@ -61,19 +58,9 @@ namespace polypolServer{
 
             //TODO write Logging script
 
-            if(!int.TryParse(location.value, out value)){
-                //Log Error
-            }
-
             foreach (var branch in branches)
             {
-                int tempBeds = 0;
-                if(int.TryParse(branch.beds, out tempBeds)){
-                    beds += tempBeds;
-                }
-                else{
-                    //Log Error
-                }
+                beds += branch.beds; 
 
             }
 
@@ -81,48 +68,35 @@ namespace polypolServer{
 
             foreach (var branch in branches)
             {
-                int tempStars = 0;
-                int tempBeds = 0;
-                float priceFactor = 1;
-
-                if(!int.TryParse(branch.beds, out tempBeds)){
-                    //Log Error
-                }
-
-                if(!int.TryParse(branch.stars, out tempStars)){
-                    //Log Error
-                }
-
-                if(!float.TryParse(branch.priceFactor, out priceFactor)){
-                    //Log Error
-                }
-
                 float supplyFine = 1;
 
                 if((float)demand/beds < 1){
                     supplyFine = (float)beds/demand;
                 }
 
-                float factor = 0.25f * value + 1.5f * tempStars * value;
+                float factor = 0.25f * value + 1.5f * branch.stars * value;
 
 
                 float supply = Math.Clamp((float)demand/beds,0,1);
 
-                if(priceFactor < 0.4f){
-                    priceFactor = 1;
+                if(branch.priceFactor < 0.4f){
+                    branch.priceFactor = 1;
                 }
 
-                double staffExpenses = tempBeds * (Math.Sqrt(tempStars + 1) * 20);
-                double interiorExpenses = tempBeds * (Math.Pow(tempStars, 0.3) * 3);
+                //TODO Change the number of tourists per year based on the year. (Data lookup required)
+                //TODO Find a way to dynamically change the number of global tourists (maybe something like a factor)
+
+                double staffExpenses = branch.beds * (Math.Sqrt(branch.stars + 1) * 20);
+                double interiorExpenses = branch.beds * (Math.Pow(branch.stars, 0.3) * 3);
 
 
-                double profit = 0.2f * (tempBeds * factor * supply - Math.Pow(priceFactor, 2) * 0.3f * tempBeds * factor * supplyFine) * 
-                (rnd.NextDouble() / 10 + 0.95) * priceFactor - staffExpenses - interiorExpenses;
+                double profit = 0.2f * (branch.beds * factor * supply - Math.Pow(branch.priceFactor, 2) * 0.3f * branch.beds * factor * supplyFine) * 
+                (rnd.NextDouble() / 10 + 0.95) * branch.priceFactor - staffExpenses - interiorExpenses;
 
-                branch.profit.Add(profit.ToString());
+                branch.profit.Add((float)profit);
                 branch.lables.Add(Data.GetDate());
-                branch.staff.Add(staffExpenses.ToString());
-                branch.interior.Add(interiorExpenses.ToString());
+                branch.staff.Add((float)staffExpenses);
+                branch.interior.Add((float)interiorExpenses);
                 profits.Add(branch.id, profit);
             }
 

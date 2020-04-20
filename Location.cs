@@ -8,8 +8,8 @@ namespace polypolServer{
         public MongoDB.Bson.ObjectId id { get; set; }
         public string country { get; set; }
         public string city { get; set; }
-        public string visitors { get; set; }
-        public string value { get; set; }
+        public float visitors { get; set; }
+        public int value { get; set; }
         public int beds { get; set; }
         public int __v { get; set; }
     }
