@@ -89,15 +89,30 @@ namespace polypolServer{
                 double staffExpenses = branch.beds * (Math.Sqrt(branch.stars + 1) * 20);
                 double interiorExpenses = branch.beds * (Math.Pow(branch.stars, 0.3) * 3);
 
-
                 double profit = 0.2f * (branch.beds * factor * supply - Math.Pow(branch.priceFactor, 2) * 0.3f * branch.beds * factor * supplyFine) * 
                 (rnd.NextDouble() / 10 + 0.95) * branch.priceFactor - staffExpenses - interiorExpenses;
+
+                branch.renovation -= 1;
+
+                //Punish not renovating
+                if(branch.renovation < 0){
+                    if(profit > 0){
+                        if(branch.renovation < -120){
+                            profit = 0;
+                        }else{
+                            profit /= 2;
+                        }
+                    }else{
+                        profit *= 2;
+                    }
+                }
 
                 branch.profit.Add((float)profit);
                 branch.lables.Add(Data.GetDate());
                 branch.staff.Add((float)staffExpenses);
                 branch.interior.Add((float)interiorExpenses);
                 profits.Add(branch.id, profit);
+
             }
 
             location.beds = beds;

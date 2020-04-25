@@ -11,6 +11,7 @@ namespace polypolServer{
         public int beds { get; set; }
         public int stars { get; set; }
         public float priceFactor { get; set; }
+        public int? renovation { get; set; }
         public int __v { get; set; }
     }
 }

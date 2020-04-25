@@ -53,6 +53,9 @@ namespace polypolServer
 
             foreach (var branch in branches)
             {
+                if(!branch.renovation.HasValue){
+                    branch.renovation = 240;
+                }
                 if(!cityBranches.ContainsKey(branch.city)){
                     cityBranches.Add(branch.city, new List<Branch>());
                 }
@@ -90,6 +93,9 @@ namespace polypolServer
 
                 var updateInterior = Builders<BsonDocument>.Update.Set("interior", branch.interior);
                 branchesBson.UpdateOne(filter, updateInterior);
+
+                var updateRenovation = Builders<BsonDocument>.Update.Set("renovation", branch.renovation);
+                branchesBson.UpdateOne(filter, updateRenovation);
 
             }     
         }
