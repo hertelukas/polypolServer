@@ -10,31 +10,46 @@ namespace polypolServer
 {
     class Program
     {
+        static private int? lastHour;
         static void Main(string[] args)
         {
-            Console.WriteLine("Update rate of the server: ");
+            Console.WriteLine("Update rate of the server: (To run the server in production mode type 0)");
             float minutes = 30f;
             while(!float.TryParse(Console.ReadLine(), out minutes)){
                 Console.WriteLine("Input invalid.");
             }
-            System.Console.WriteLine("Updating every " + minutes + " minutes");
+            if(minutes == 0){
+                System.Console.WriteLine("Updating the server every full hour.");
+                var timer = new System.Timers.Timer(5000);
+                lastHour = DateTime.Now.Hour;
+                timer.Elapsed += new System.Timers.ElapsedEventHandler(OnTimedEvent);
+                timer.Start();
 
-            var timer = new System.Timers.Timer(minutes * 60 * 1000);
-            timer.Elapsed += new System.Timers.ElapsedEventHandler(OnTimedEvent);
-            timer.Start();
-            OnTimedEvent(null, null);
+            }
+            else if(minutes > 0){
+                System.Console.WriteLine("Updating every " + minutes + " minutes");
+                var timer = new System.Timers.Timer(minutes * 60 * 1000);
+                timer.Elapsed += new System.Timers.ElapsedEventHandler(OnTimedEvent);
+                timer.Start();
+                OnTimedEvent(null, null);
+            }
+
 
             Console.ReadLine();
         }
 
         private static void OnTimedEvent(object source, System.Timers.ElapsedEventArgs e){
-            Data.NewCalculation();
-            Calculator.profits.Clear();
-            MongoClient dbClient = new MongoClient("mongodb+srv://admin:Fz05cKoP4PPx@polypol-i4wle.mongodb.net/test?retryWrites=true&w=majority");
-            var database = dbClient.GetDatabase("test");
-            UpdateBranches(database);
-            UpdateLocations(database);
-            UpdateUsers(database);
+            if(!lastHour.HasValue || (lastHour < DateTime.Now.Hour || lastHour == 23 && DateTime.Now.Hour == 0)){
+                if(lastHour.HasValue) lastHour = DateTime.Now.Hour;
+                Data.NewCalculation();
+                Calculator.profits.Clear();
+                MongoClient dbClient = new MongoClient("mongodb+srv://admin:Fz05cKoP4PPx@polypol-i4wle.mongodb.net/test?retryWrites=true&w=majority");
+                var database = dbClient.GetDatabase("test");
+                UpdateBranches(database);
+                UpdateLocations(database);
+                UpdateUsers(database);
+            }
+
         }
 
         private static void UpdateBranches(IMongoDatabase database){
