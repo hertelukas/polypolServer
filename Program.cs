@@ -160,6 +160,7 @@ namespace polypolServer
                 user.labels.Add(Data.GetDate());
 
                 user.cash += tempProfit;
+                user.netWorth.Add(user.netWorth[user.netWorth.Count - 1] += tempProfit);
 
                 var filter = Builders<BsonDocument>.Filter.Eq("_id", user.id);
                 var updateCash = Builders<BsonDocument>.Update.Set("cash", user.cash);
@@ -170,6 +171,9 @@ namespace polypolServer
 
                 var updateProfit = Builders<BsonDocument>.Update.Set("profit", user.profit);
                 usersBson.UpdateOne(filter, updateProfit);
+
+                var updateNet = Builders<BsonDocument>.Update.Set("netWorth", user.netWorth);
+                usersBson.UpdateOne(filter, updateNet);
 
             }
         }

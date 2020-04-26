@@ -10,5 +10,6 @@ namespace polypolServer{
         public List<string> staff { get; set; }
         public List<string> interior { get; set; }
         public double cash { get; set; }
+        public List<double> netWorth { get; set; }
     }
 }
