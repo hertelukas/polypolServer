@@ -9,6 +9,6 @@ namespace polypolServer{
         public List<string> profit { get; set; }
         public List<string> staff { get; set; }
         public List<string> interior { get; set; }
-        public string cash { get; set; }
+        public double cash { get; set; }
     }
 }

@@ -156,16 +156,10 @@ namespace polypolServer
                     tempProfit += Calculator.profits.GetValueOrDefault(branch);
                 }
 
-
                 user.profit.Add(tempProfit.ToString());
                 user.labels.Add(Data.GetDate());
-                double cash;
 
-                if(!double.TryParse(user.cash, out cash)){
-                    //Log Error
-                }
-                cash += tempProfit;
-                user.cash = cash.ToString();
+                user.cash += tempProfit;
 
                 var filter = Builders<BsonDocument>.Filter.Eq("_id", user.id);
                 var updateCash = Builders<BsonDocument>.Update.Set("cash", user.cash);
