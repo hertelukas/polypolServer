@@ -4,27 +4,54 @@ namespace polypolServer{
 
     public static class Data{
 
-        private static int month = -1;
-        private static int year = 1980;
+        private static int Month = -1;
+        private static int Year = 1980;
         private static string[] months = {"January","February","March","April","May","June","July", "August","September","October","November","December"};
 
         public static void NewCalculation(){
-            if(month < 12){
-                month++;
+            if(Month < 12){
+                Month++;
             }
             else{
-                month = 0;
-                year++;
+                Month = 0;
+                Year++;
             }
-            System.Console.WriteLine($"===========================\n{months[month]}/{year.ToString()}\n===========================");
+            System.Console.WriteLine($"===========================\n{months[Month]}/{Year.ToString()}\n===========================");
         }
         public static string GetDate()
         {
-            return $"{months[month]}/{year.ToString()}";
+            return $"{months[Month]}/{Year.ToString()}";
         }
 
         public static int GetMonth(){
-            return month;
+            return Month;
+        }
+
+        public static void SetYear(int year){
+            Year = year;
+        }
+
+        public static void SetMonth(int month){
+            if(month > months.Length - 1){
+                throw new System.IndexOutOfRangeException();
+            }else{
+                Month = month;
+            }
+        }
+
+        public static bool CheckIfYesNo(string input, out bool? result){
+            input = input.ToLower();
+            if(input == "yes" ||  input == "y"){
+                result = true;
+                return true;
+
+            }
+            else if(input == "no" || input == "n"){
+                result = false;
+                return true;
+            }
+            result = null;
+            return false;
         }
 
     }

@@ -13,6 +13,28 @@ namespace polypolServer
         static private int? lastHour;
         static void Main(string[] args)
         {
+            System.Console.WriteLine("Input the beginning year: ");
+            int year;
+            while(!int.TryParse(Console.ReadLine(), out year)){
+                Console.WriteLine("Input invalid.");
+            }
+            Data.SetYear(year);
+
+            System.Console.WriteLine("Do you want to restart the server? [yes/no]");
+            bool? update;
+            while(!Data.CheckIfYesNo(Console.ReadLine(), out update)){
+                Console.WriteLine("Input invalid.");
+            }
+
+            if(update.GetValueOrDefault()){
+                int month;
+                System.Console.WriteLine("Input the month to start at: ");
+                while(!int.TryParse(Console.ReadLine(), out month)){
+                    Console.WriteLine("Input invalid.");
+                }
+                Data.SetMonth(month - 2);
+            }
+
             Console.WriteLine("Update rate of the server: (To run the server in production mode type 0)");
             float minutes = 30f;
             while(!float.TryParse(Console.ReadLine(), out minutes)){
@@ -83,6 +105,8 @@ namespace polypolServer
             foreach (var location in locationsBsonList)
             {
                 location.Remove("branches");
+                location.Remove("latitude");
+                location.Remove("longitude");
                 Calculator.locations.Add(BsonSerializer.Deserialize<Location>(location));
             }
 
