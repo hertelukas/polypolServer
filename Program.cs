@@ -70,6 +70,7 @@ namespace polypolServer
                 UpdateBranches(database);
                 UpdateLocations(database);
                 UpdateUsers(database);
+                CleanUp();
             }
 
         }
@@ -200,6 +201,11 @@ namespace polypolServer
                 usersBson.UpdateOne(filter, updateNet);
 
             }
+        }
+
+        private static void CleanUp(){
+            Calculator.locations.Clear();
+            Calculator.profits.Clear();
         }
     }
 }
