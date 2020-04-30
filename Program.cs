@@ -86,6 +86,8 @@ namespace polypolServer
 
             foreach (var doc in branchesBsonList)
             {
+                doc.Remove("onSale");
+                doc.Remove("salePrice");
                 branches.Add(BsonSerializer.Deserialize<Branch>(doc));
             }
 
