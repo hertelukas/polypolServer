@@ -110,6 +110,7 @@ namespace polypolServer
                 location.Remove("branches");
                 location.Remove("latitude");
                 location.Remove("longitude");
+                location.Remove("region");
                 Calculator.locations.Add(BsonSerializer.Deserialize<Location>(location));
             }
 
