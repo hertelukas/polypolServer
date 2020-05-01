@@ -86,8 +86,8 @@ namespace polypolServer{
                 //TODO Change the number of tourists per year based on the year. (Data lookup required)
                 //TODO Find a way to dynamically change the number of global tourists (maybe something like a factor)
 
-                double staffExpenses = branch.beds * Math.Sqrt(branch.stars + 1) * 60;
-                double interiorExpenses = branch.beds * Math.Pow(branch.stars, 0.3) * 7;
+                double staffExpenses = branch.beds * Math.Sqrt(branch.stars + 1) * 60 * location.value / 1000;
+                double interiorExpenses = branch.beds * Math.Pow(branch.stars, 0.3) * 7 * location.value / 1000;
 
                 double profit = 0.2f * (branch.beds * factor * supply - Math.Pow(branch.priceFactor, 2) * 0.3f * branch.beds * factor * supplyFine) * 
                 (rnd.NextDouble() / 10 + 0.95) * branch.priceFactor - staffExpenses - interiorExpenses;
