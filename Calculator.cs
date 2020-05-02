@@ -60,8 +60,7 @@ namespace polypolServer{
 
             foreach (var branch in branches)
             {
-                beds += branch.beds; 
-
+                beds += branch.beds;
             }
 
             Random rnd = new Random();
@@ -112,7 +111,6 @@ namespace polypolServer{
                 branch.staff.Add((float)staffExpenses);
                 branch.interior.Add((float)interiorExpenses);
                 profits.Add(branch.id, profit);
-
             }
 
             location.beds = beds;
@@ -134,7 +132,5 @@ namespace polypolServer{
 
             Console.ForegroundColor = ConsoleColor.White;
         }
-
     }
-
 }

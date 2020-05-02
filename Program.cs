@@ -55,8 +55,6 @@ namespace polypolServer
                 timer.Start();
                 OnTimedEvent(null, null);
             }
-
-
             Console.ReadLine();
         }
 
@@ -139,7 +137,6 @@ namespace polypolServer
 
                 var updateRenovation = Builders<BsonDocument>.Update.Set("renovation", branch.renovation);
                 branchesBson.UpdateOne(filter, updateRenovation);
-
             }     
         }
 
@@ -209,6 +206,7 @@ namespace polypolServer
         private static void CleanUp(){
             Calculator.locations.Clear();
             Calculator.profits.Clear();
+            System.Console.WriteLine("Updated everything.");
         }
     }
 }
