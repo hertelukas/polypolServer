@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace polypolServer{
     public static class Calculator{
@@ -111,12 +112,27 @@ namespace polypolServer{
                 branch.staff.Add((float)staffExpenses);
                 branch.interior.Add((float)interiorExpenses);
                 profits.Add(branch.id, profit);
+
+                //Remove all data older than 24 months
+                CutList(branch.profit);
+                CutList(branch.lables);
+                CutList(branch.staff);
+                CutList(branch.interior);
             }
 
             location.beds = beds;
 
             PlotCity(city, beds, demand);
             return branches;
+        }
+
+        public static void CutList<T>(List<T> list){
+            if(list.Count > 24){
+                for (int i = list.Count - 25; i >= 0; i--)
+                {
+                    list.RemoveAt(i);
+                }
+            }
         }
 
         private static void PlotCity(string city, int beds, float demand){

@@ -187,6 +187,10 @@ namespace polypolServer
                 user.cash += tempProfit;
                 user.netWorth.Add(user.netWorth[user.netWorth.Count - 1] += tempProfit);
 
+                Calculator.CutList(user.netWorth);
+                Calculator.CutList(user.labels);
+                Calculator.CutList(user.profit);
+
                 var filter = Builders<BsonDocument>.Filter.Eq("_id", user.id);
                 var updateCash = Builders<BsonDocument>.Update.Set("cash", user.cash);
                 usersBson.UpdateOne(filter, updateCash);
