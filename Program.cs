@@ -169,6 +169,7 @@ namespace polypolServer
                 doc.Remove("chainName");
                 doc.Remove("resetPasswordToken");
                 doc.Remove("resetPasswordExpires");
+                doc.Remove("dark");
                 users.Add(BsonSerializer.Deserialize<User>(doc));
             }
 
