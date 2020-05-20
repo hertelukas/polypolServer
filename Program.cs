@@ -170,6 +170,8 @@ namespace polypolServer
                 doc.Remove("resetPasswordToken");
                 doc.Remove("resetPasswordExpires");
                 doc.Remove("dark");
+                doc.Remove("invitesRemaining");
+                doc.Remove("invitedby");
                 users.Add(BsonSerializer.Deserialize<User>(doc));
             }
 
