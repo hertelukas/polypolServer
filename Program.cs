@@ -63,10 +63,10 @@ namespace polypolServer
                 if(lastHour.HasValue) lastHour = DateTime.Now.Hour;
                 Data.NewCalculation();
                 Calculator.profits.Clear();
-                //MongoClient dbClient = new MongoClient("mongodb+srv://admin:Fz05cKoP4PPx@polypol-i4wle.mongodb.net/test?retryWrites=true&w=majority");
-                MongoClient dbClient = new MongoClient("mongodb://localhost:27017/zivi?readPreference=primary&appname=MongoDB%20Compass&ssl=false");
-                //var database = dbClient.GetDatabase("test");
-                var database = dbClient.GetDatabase("game");
+                MongoClient dbClient = new MongoClient("mongodb+srv://admin:Fz05cKoP4PPx@polypol-i4wle.mongodb.net/test?retryWrites=true&w=majority");
+                // MongoClient dbClient = new MongoClient("mongodb://localhost:27017/zivi?readPreference=primary&appname=MongoDB%20Compass&ssl=false");
+                var database = dbClient.GetDatabase("test");
+                // var database = dbClient.GetDatabase("game");
                 UpdateBranches(database);
                 UpdateLocations(database);
                 UpdateUsers(database);
