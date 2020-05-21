@@ -185,6 +185,9 @@ namespace polypolServer
                 var updateProfit = Builders<BsonDocument>.Update.Set("profit", user.profit);
                 usersBson.UpdateOne(filter, updateProfit);
 
+                var updateDate = Builders<BsonDocument>.Update.Set("date", Data.GetDate());
+                usersBson.UpdateOne(filter, updateDate);
+
                 var updateNet = Builders<BsonDocument>.Update.Set("netWorth", user.netWorth);
                 usersBson.UpdateOne(filter, updateNet);
 
