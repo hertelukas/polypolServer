@@ -8,6 +8,7 @@ namespace polypolServer{
 
         public static List<Location> locations = new List<Location>();
         public static Dictionary<MongoDB.Bson.ObjectId, double> profits = new Dictionary<MongoDB.Bson.ObjectId, double>();
+        public static Dictionary<MongoDB.Bson.ObjectId, double> taxes = new Dictionary<MongoDB.Bson.ObjectId, double>();
         public static List<Branch> CalculateProfit(List<Branch> branches, string city){
             Location location = locations.Find(x => x.city == city);
 
@@ -83,14 +84,14 @@ namespace polypolServer{
                     branch.priceFactor = 1;
                 }
 
-                //TODO Change the number of tourists per year based on the year. (Data lookup required)
-                //TODO Find a way to dynamically change the number of global tourists (maybe something like a factor)
-
                 double staffExpenses = branch.beds * Math.Sqrt(branch.stars + 1) * 60 * location.value / 1000;
                 double interiorExpenses = branch.beds * Math.Pow(branch.stars, 0.3) * 7 * location.value / 1000;
 
                 double profit = 0.2f * (branch.beds * factor * supply - Math.Pow(branch.priceFactor, 2) * 0.3f * branch.beds * factor * supplyFine) * 
                 (rnd.NextDouble() / 10 + 0.95) * branch.priceFactor - staffExpenses - interiorExpenses;
+
+                double tax = profit * ((float)location.value / (10000 * ((branch.stars + 1) / 2)));
+                profit -= tax;
 
                 branch.renovation -= 1;
 
@@ -110,14 +111,18 @@ namespace polypolServer{
                 branch.profit.Add((float)profit);
                 branch.lables.Add(Data.GetDate());
                 branch.staff.Add((float)staffExpenses);
+                if(branch.taxes == null) branch.taxes = new List<double>();
+                branch.taxes.Add((float)tax);
                 branch.interior.Add((float)interiorExpenses);
                 profits.Add(branch.id, profit);
+                taxes.Add(branch.id, tax);
 
                 //Remove all data older than 24 months
                 CutList(branch.profit);
                 CutList(branch.lables);
                 CutList(branch.staff);
                 CutList(branch.interior);
+                CutList(branch.taxes);
             }
 
             location.beds = beds;

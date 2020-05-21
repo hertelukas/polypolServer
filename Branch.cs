@@ -7,6 +7,7 @@ namespace polypolServer{
         public List<double> profit { get; set; }
         public List<double> staff { get; set; }
         public List<double> interior { get; set; }
+        public List<double> taxes { get; set; }
         public string city { get; set; }
         public int beds { get; set; }
         public int stars { get; set; }

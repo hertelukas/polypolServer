@@ -63,8 +63,10 @@ namespace polypolServer
                 if(lastHour.HasValue) lastHour = DateTime.Now.Hour;
                 Data.NewCalculation();
                 Calculator.profits.Clear();
-                MongoClient dbClient = new MongoClient("mongodb+srv://admin:Fz05cKoP4PPx@polypol-i4wle.mongodb.net/test?retryWrites=true&w=majority");
-                var database = dbClient.GetDatabase("test");
+                //MongoClient dbClient = new MongoClient("mongodb+srv://admin:Fz05cKoP4PPx@polypol-i4wle.mongodb.net/test?retryWrites=true&w=majority");
+                MongoClient dbClient = new MongoClient("mongodb://localhost:27017/zivi?readPreference=primary&appname=MongoDB%20Compass&ssl=false");
+                //var database = dbClient.GetDatabase("test");
+                var database = dbClient.GetDatabase("game");
                 UpdateBranches(database);
                 UpdateLocations(database);
                 UpdateUsers(database);
@@ -135,6 +137,9 @@ namespace polypolServer
                 var updateInterior = Builders<BsonDocument>.Update.Set("interior", branch.interior);
                 branchesBson.UpdateOne(filter, updateInterior);
 
+                var updateTaxes = Builders<BsonDocument>.Update.Set("taxes", branch.taxes);
+                branchesBson.UpdateOne(filter, updateTaxes);
+
                 var updateRenovation = Builders<BsonDocument>.Update.Set("renovation", branch.renovation);
                 branchesBson.UpdateOne(filter, updateRenovation);
             }     
@@ -153,6 +158,7 @@ namespace polypolServer
 
         private static void UpdateUsers(IMongoDatabase database){
             var usersBson = database.GetCollection<BsonDocument>("users");
+            var branchesBson = database.GetCollection<BsonDocument>("branches");
             var usersBsonList = usersBson.Find(new BsonDocument()).ToList();
 
             List<User> users = new List<User>();
@@ -178,10 +184,12 @@ namespace polypolServer
             foreach (var user in users)
             {
                 double tempProfit = 0;
+                double taxes = 0;
 
                 foreach (var branch in user.branches)
                 {
                     tempProfit += Calculator.profits.GetValueOrDefault(branch);
+                    taxes += Calculator.taxes.GetValueOrDefault(branch);
                 }
 
                 user.profit.Add(tempProfit.ToString());
@@ -189,6 +197,18 @@ namespace polypolServer
 
                 user.cash += tempProfit;
                 user.netWorth.Add(user.netWorth[user.netWorth.Count - 1] += tempProfit);
+                if(user.netWorth[user.netWorth.Count - 1] > 10000000){
+                    user.cash -= taxes;
+                    user.netWorth[user.netWorth.Count - 1] -= taxes;
+                }
+                else{
+                    foreach (var branch in user.branches)
+                    {
+                        var branchesFilter = Builders<BsonDocument>.Filter.Eq("_id", branch);
+                        var updateTaxes = Builders<BsonDocument>.Update.Set("taxes", new List<double>());
+                        branchesBson.UpdateOne(branchesFilter, updateTaxes);
+                    }
+                }
 
                 Calculator.CutList(user.netWorth);
                 Calculator.CutList(user.labels);
