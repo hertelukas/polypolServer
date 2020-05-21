@@ -11,68 +11,29 @@ namespace polypolServer
     class Program
     {
         static private int? lastHour;
+
+        static int year = 0;
+        static int month = 0;
         static void Main(string[] args)
         {
-            System.Console.WriteLine("Input the beginning year: ");
-            int year;
-            while(!int.TryParse(Console.ReadLine(), out year)){
-                Console.WriteLine("Input invalid.");
-            }
+            ReadProgress();
             Data.SetYear(year);
+            Data.SetMonth(month - 2);
 
-            System.Console.WriteLine("Do you want to restart the server? [yes/no]");
-            bool? update;
-            while(!Data.CheckIfYesNo(Console.ReadLine(), out update)){
-                Console.WriteLine("Input invalid.");
-            }
-
-            if(update.GetValueOrDefault()){
-                int month;
-                System.Console.WriteLine("Input the month to start at: ");
-                while(!int.TryParse(Console.ReadLine(), out month)){
-                    Console.WriteLine("Input invalid.");
-                }
-                Data.SetMonth(month - 2);
-            }
-
-            Console.WriteLine("Update rate of the server: (To run the server in production mode type 0)");
-            float minutes = 30f;
-            while(!float.TryParse(Console.ReadLine(), out minutes)){
-                Console.WriteLine("Input invalid.");
-            }
-            if(minutes == 0){
-                System.Console.WriteLine("Updating the server every full hour.");
-                var timer = new System.Timers.Timer(5000);
-                lastHour = DateTime.Now.Hour;
-                timer.Elapsed += new System.Timers.ElapsedEventHandler(OnTimedEvent);
-                timer.Start();
-
-            }
-            else if(minutes > 0){
-                System.Console.WriteLine("Updating every " + minutes + " minutes");
-                var timer = new System.Timers.Timer(minutes * 60 * 1000);
-                timer.Elapsed += new System.Timers.ElapsedEventHandler(OnTimedEvent);
-                timer.Start();
-                OnTimedEvent(null, null);
-            }
-            Console.ReadLine();
+            UpdateEverythingOnce();
         }
 
-        private static void OnTimedEvent(object source, System.Timers.ElapsedEventArgs e){
-            if(!lastHour.HasValue || (lastHour < DateTime.Now.Hour || lastHour == 23 && DateTime.Now.Hour == 0)){
-                if(lastHour.HasValue) lastHour = DateTime.Now.Hour;
+        private static void UpdateEverythingOnce(){
                 Data.NewCalculation();
                 Calculator.profits.Clear();
-                MongoClient dbClient = new MongoClient("mongodb+srv://admin:Fz05cKoP4PPx@polypol-i4wle.mongodb.net/test?retryWrites=true&w=majority");
-                // MongoClient dbClient = new MongoClient("mongodb://localhost:27017/zivi?readPreference=primary&appname=MongoDB%20Compass&ssl=false");
-                var database = dbClient.GetDatabase("test");
-                // var database = dbClient.GetDatabase("game");
+                // MongoClient dbClient = new MongoClient("mongodb+srv://admin:Fz05cKoP4PPx@polypol-i4wle.mongodb.net/test?retryWrites=true&w=majority");
+                MongoClient dbClient = new MongoClient("mongodb://localhost:27017/zivi?readPreference=primary&appname=MongoDB%20Compass&ssl=false");
+                // var database = dbClient.GetDatabase("test");
+                var database = dbClient.GetDatabase("game");
                 UpdateBranches(database);
                 UpdateLocations(database);
                 UpdateUsers(database);
                 CleanUp();
-            }
-
         }
 
         private static void UpdateBranches(IMongoDatabase database){
@@ -233,7 +194,24 @@ namespace polypolServer
         private static void CleanUp(){
             Calculator.locations.Clear();
             Calculator.profits.Clear();
-            System.Console.WriteLine("Updated everything.");
+            System.Console.WriteLine("Updated everything."); 
+            SaveProgress();       
+        }
+
+        private static void ReadProgress(){
+            string[] current = System.IO.File.ReadAllText(System.IO.Directory.GetCurrentDirectory() + "/progress.txt").Split(' ');
+            year = Int16.Parse(current[0]);
+            month = Int16.Parse(current[1]);
+        }
+
+        private static void SaveProgress(){
+            if(month  == 12) {
+                year++;
+                month = 1;
+            }else{
+                month++;
+            }
+            System.IO.File.WriteAllText(System.IO.Directory.GetCurrentDirectory() + "/progress.txt", $"{year} {month}");
         }
     }
 }

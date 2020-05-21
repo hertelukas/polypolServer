@@ -22,7 +22,7 @@ namespace polypolServer{
         {
             return $"{months[Month]}/{Year.ToString()}";
         }
-
+        
         public static int GetMonth(){
             return Month;
         }
