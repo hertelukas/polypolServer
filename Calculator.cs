@@ -95,6 +95,8 @@ namespace polypolServer{
                 if(profit < 0) tax  = 0;
                 profit -= tax;
 
+                if(profit < tax + staffExpenses + interiorExpenses) profit = 0 - tax - staffExpenses - interiorExpenses;
+
                 branch.renovation -= 1;
 
                 //Punish not renovating
