@@ -26,10 +26,10 @@ namespace polypolServer
         private static void UpdateEverythingOnce(){
                 Data.NewCalculation();
                 Calculator.profits.Clear();
-                MongoClient dbClient = new MongoClient("mongodb+srv://admin:Fz05cKoP4PPx@polypol-i4wle.mongodb.net/test?retryWrites=true&w=majority");
-                // MongoClient dbClient = new MongoClient("mongodb://localhost:27017/zivi?readPreference=primary&appname=MongoDB%20Compass&ssl=false");
-                var database = dbClient.GetDatabase("test");
-                // var database = dbClient.GetDatabase("game");
+                // MongoClient dbClient = new MongoClient("mongodb+srv://admin:Fz05cKoP4PPx@polypol-i4wle.mongodb.net/test?retryWrites=true&w=majority");
+                MongoClient dbClient = new MongoClient("mongodb://localhost:27017/zivi?readPreference=primary&appname=MongoDB%20Compass&ssl=false");
+                // var database = dbClient.GetDatabase("test");
+                var database = dbClient.GetDatabase("game");
                 UpdateBranches(database);
                 UpdateLocations(database);
                 UpdateUsers(database);
@@ -162,6 +162,7 @@ namespace polypolServer
                 }
 
                 if(user.netWorth[user.netWorth.Count - 1] > 10000000){
+                    if(user.accountant) taxes *= 0.9;
                     tempProfit -= taxes;
                 }
                 else{
