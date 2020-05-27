@@ -12,5 +12,10 @@ namespace polypolServer{
         public double cash { get; set; }
         public string date { get; set; }
         public List<double> netWorth { get; set; }
+        public double toPay { get; set; }
+        public double loansRemaining { get; set; }
+        public bool accountant { get; set; }
+        public bool salesperson { get; set; }
+        public bool banker { get; set; }
     }
 }

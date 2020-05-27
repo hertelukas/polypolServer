@@ -153,14 +153,16 @@ namespace polypolServer
                     taxes += Calculator.taxes.GetValueOrDefault(branch);
                 }
 
-                user.profit.Add(tempProfit.ToString());
-                user.labels.Add(Data.GetDate());
+                if(user.accountant) tempProfit -= 14000;
+                if(user.banker) tempProfit -= 11000;
+                if(user.salesperson) tempProfit -= 10500;
+                if(user.loansRemaining > 0) {
+                    tempProfit -= user.toPay;
+                    user.loansRemaining--;
+                }
 
-                user.cash += tempProfit;
-                user.netWorth.Add(user.netWorth[user.netWorth.Count - 1] += tempProfit);
                 if(user.netWorth[user.netWorth.Count - 1] > 10000000){
-                    user.cash -= taxes;
-                    user.netWorth[user.netWorth.Count - 1] -= taxes;
+                    tempProfit -= taxes;
                 }
                 else{
                     foreach (var branch in user.branches)
@@ -170,6 +172,10 @@ namespace polypolServer
                         branchesBson.UpdateOne(branchesFilter, updateTaxes);
                     }
                 }
+                user.profit.Add(tempProfit.ToString());
+                user.labels.Add(Data.GetDate());
+                user.cash += tempProfit;
+                user.netWorth.Add(user.netWorth[user.netWorth.Count - 1] += tempProfit);
 
                 Calculator.CutList(user.netWorth);
                 Calculator.CutList(user.labels);
@@ -190,6 +196,9 @@ namespace polypolServer
 
                 var updateNet = Builders<BsonDocument>.Update.Set("netWorth", user.netWorth);
                 usersBson.UpdateOne(filter, updateNet);
+
+                var updateLoans = Builders<BsonDocument>.Update.Set("loansRemaining", user.loansRemaining);
+                usersBson.UpdateOne(filter, updateLoans);
 
             }
         }
