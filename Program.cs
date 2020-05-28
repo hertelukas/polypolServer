@@ -174,6 +174,7 @@ namespace polypolServer
                         branchesBson.UpdateOne(branchesFilter, updateTaxes);
                     }
                 }
+
                 user.profit.Add(tempProfit.ToString());
                 user.labels.Add(Data.GetDate());
                 user.cash += tempProfit;
