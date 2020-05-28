@@ -14,5 +14,6 @@ namespace polypolServer{
         public double priceFactor { get; set; }
         public int? renovation { get; set; }
         public int __v { get; set; }
+        public bool autorenovate { get; set; }
     }
 }

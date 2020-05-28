@@ -99,16 +99,23 @@ namespace polypolServer{
 
                 branch.renovation -= 1;
 
+
                 //Punish not renovating
                 if(branch.renovation < 0){
-                    if(profit > 0){
-                        if(branch.renovation < -120){
-                            profit = 0;
+                    if(branch.autorenovate){
+                        branch.renovation = 240;
+                        var priceToRenovate = location.value * branch.stars * Math.Sqrt(240) * branch.beds / 150 * 1.1;
+                        profit -= priceToRenovate;
+                    } else{
+                        if(profit > 0){
+                            if(branch.renovation < -120){
+                                profit = 0;
+                            }else{
+                                profit /= 2;
+                            }
                         }else{
-                            profit /= 2;
+                            profit *= 2;
                         }
-                    }else{
-                        profit *= 2;
                     }
                 }
 
