@@ -101,7 +101,7 @@ namespace polypolServer{
 
                 if(branch.renovation == 0 && branch.autorenovate){
                        branch.renovation = 240;
-                       var priceToRenovate = location.value * branch.stars * Math.Sqrt(240) * branch.beds / 150 * 1.1;
+                       var priceToRenovate = location.value * branch.stars * Math.Sqrt(240) * branch.beds / 150 * 1.5;
                        profit -= priceToRenovate;
                 }
 
