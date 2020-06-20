@@ -99,10 +99,11 @@ namespace polypolServer{
 
                 branch.renovation -= 1;
 
-                if(branch.renovation == 0 && branch.autorenovate){
-                       branch.renovation = 240;
-                       var priceToRenovate = location.value * branch.stars * Math.Sqrt(240) * branch.beds / 150 * 1.5;
-                       profit -= priceToRenovate;
+                if(branch.renovation <= 0 && branch.autorenovate){
+                    int tempRenovation = branch.renovation.GetValueOrDefault();
+                    branch.renovation = 240;
+                    var priceToRenovate = location.value * branch.stars * Math.Sqrt(tempRenovation) * branch.beds / 150 * 1.5;
+                    profit -= priceToRenovate;
                 }
 
                 //Punish not renovating
