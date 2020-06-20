@@ -140,6 +140,8 @@ namespace polypolServer
                 doc.Remove("invitesRemaining");
                 doc.Remove("invitedby");
                 doc.Remove("autorenovate");
+                doc.Remove("sponsor");
+                doc.Remove("sponsorMessage");
                 users.Add(BsonSerializer.Deserialize<User>(doc));
             }
 
