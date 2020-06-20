@@ -26,10 +26,10 @@ namespace polypolServer
         private static void UpdateEverythingOnce(){
                 Data.NewCalculation();
                 Calculator.profits.Clear();
-                MongoClient dbClient = new MongoClient("mongodb://lukas:j*2D5TVi@localhost:27017/sampledb?authSource=test&readPreference=primary&appname=MongoDB%20Compass&ssl=false");
-                // MongoClient dbClient = new MongoClient("mongodb://localhost:27017/zivi?readPreference=primary&appname=MongoDB%20Compass&ssl=false");
-                var database = dbClient.GetDatabase("sampledb");
-                // var database = dbClient.GetDatabase("game");
+                // MongoClient dbClient = new MongoClient("mongodb://lukas:j*2D5TVi@localhost:27017/sampledb?authSource=test&readPreference=primary&appname=MongoDB%20Compass&ssl=false");
+                MongoClient dbClient = new MongoClient("mongodb://localhost:27017/zivi?readPreference=primary&appname=MongoDB%20Compass&ssl=false");
+                // var database = dbClient.GetDatabase("sampledb");
+                var database = dbClient.GetDatabase("game");
                 UpdateBranches(database);
                 UpdateLocations(database);
                 UpdateUsers(database);

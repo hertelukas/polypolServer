@@ -93,6 +93,7 @@ namespace polypolServer{
                 double tax = 2 * profit * ((float)location.value / (10000 * ((branch.stars + 1) / 2)));
                 if(tax > 0.5 * profit) tax = 0.5 * profit;
                 if(profit < 0) tax  = 0;
+                else profit *= 0.5; 
                 profit -= tax;
 
                 if(profit < tax + staffExpenses + interiorExpenses) profit = 0 - tax - staffExpenses - interiorExpenses;

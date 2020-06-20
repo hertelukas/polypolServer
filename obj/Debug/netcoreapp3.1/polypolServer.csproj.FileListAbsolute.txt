@@ -17,5 +17,3 @@
 /home/lukashertel/Documents/Web/polypolServer/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
 /home/lukashertel/Documents/Web/polypolServer/bin/Debug/netcoreapp3.1/SharpCompress.dll
 /home/lukashertel/Documents/Web/polypolServer/obj/Debug/netcoreapp3.1/polypolServer.csproj.CopyComplete
-/home/lukashertel/Documents/Web/polypolServer/bin/Debug/netcoreapp3.1/runtimes/osx.10.10-x64/native/System.Security.Cryptography.Native.Apple.dylib
-/home/lukashertel/Documents/Web/polypolServer/bin/Debug/netcoreapp3.1/runtimes/osx.10.10-x64/native/System.Security.Cryptography.Native.OpenSsl.dylib
