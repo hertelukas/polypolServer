@@ -10,8 +10,6 @@ namespace polypolServer
 {
     class Program
     {
-        static private int? lastHour;
-
         static int year = 0;
         static int month = 0;
         static void Main(string[] args)
@@ -26,14 +24,46 @@ namespace polypolServer
         private static void UpdateEverythingOnce(){
                 Data.NewCalculation();
                 Calculator.profits.Clear();
+
                 // MongoClient dbClient = new MongoClient("mongodb://lukas:j*2D5TVi@localhost:27017/sampledb?authSource=test&readPreference=primary&appname=MongoDB%20Compass&ssl=false");
                 MongoClient dbClient = new MongoClient("mongodb://localhost:27017/zivi?readPreference=primary&appname=MongoDB%20Compass&ssl=false");
                 // var database = dbClient.GetDatabase("sampledb");
                 var database = dbClient.GetDatabase("game");
+                HandleNews(database);
                 UpdateBranches(database);
                 UpdateLocations(database);
                 UpdateUsers(database);
                 CleanUp();
+        }
+
+        private static void HandleNews(IMongoDatabase database){
+            var news = GetNews();
+
+            var locationsBson = database.GetCollection<BsonDocument>("locations");
+            var locationsBsonList = locationsBson.Find(new BsonDocument()).ToList();
+            
+            foreach (var location in locationsBsonList)
+            {
+                location.Remove("branches");
+                location.Remove("latitude");
+                location.Remove("longitude");
+                location.Remove("region");
+                Location tempLocation = BsonSerializer.Deserialize<Location>(location);
+
+                if(news != null){
+                    tempLocation.visitors *= (float)news.change;
+                }
+
+                Calculator.locations.Add(tempLocation);                
+            }
+            if(news != null) InsertNews(database, news);
+        }
+
+        private static void InsertNews(IMongoDatabase database, News news){
+            news.change = (news.change - 1) * 100;
+            news.date = GetMonth(month) + " " + year.ToString();
+            var newsBson = database.GetCollection<BsonDocument>("news");
+            newsBson.InsertOne(news.ToBsonDocument());
         }
 
         private static void UpdateBranches(IMongoDatabase database){
@@ -63,17 +93,6 @@ namespace polypolServer
                 cityBranches[branch.city].Add(branch);
             }
 
-            var locationsBson = database.GetCollection<BsonDocument>("locations");
-            var locationsBsonList = locationsBson.Find(new BsonDocument()).ToList();
-            
-            foreach (var location in locationsBsonList)
-            {
-                location.Remove("branches");
-                location.Remove("latitude");
-                location.Remove("longitude");
-                location.Remove("region");
-                Calculator.locations.Add(BsonSerializer.Deserialize<Location>(location));
-            }
 
 
             List<Branch> updatedBranches = new List<Branch>();
@@ -114,6 +133,9 @@ namespace polypolServer
                 var updateBeds = Builders<BsonDocument>.Update.Set("beds", location.beds);
                 var filter = Builders<BsonDocument>.Filter.Eq("_id", location.id);
                 locationsBson.UpdateOne(filter, updateBeds);
+
+                var upadteVisitors = Builders<BsonDocument>.Update.Set("visitors", location.visitors);
+                locationsBson.UpdateOne(filter, upadteVisitors);
             }
         }
 
@@ -204,14 +226,36 @@ namespace polypolServer
 
                 var updateLoans = Builders<BsonDocument>.Update.Set("loansRemaining", user.loansRemaining);
                 usersBson.UpdateOne(filter, updateLoans);
-
             }
+        }
+
+        private static News GetNews(){
+            string[] newsLines = System.IO.File.ReadAllLines(System.IO.Directory.GetCurrentDirectory() + "/news.txt");
+            Dictionary<string, News> news = new Dictionary<string, News>();
+            string currentDate = year.ToString() + " " + month.ToString();
+            var region = new List<string>();
+            region.Add("all");
+
+            for (int i = 0; i < newsLines.Length; i++)
+            {
+                news.Add(newsLines[i], new News(){
+                    change = float.Parse(newsLines[++i]),
+                    title = newsLines[++i],
+                    text = newsLines[++i],
+                    region = region
+                    });                
+            }
+
+            if(news.ContainsKey(currentDate)){
+                return news[currentDate];
+            } 
+            return null;
         }
 
         private static void CleanUp(){
             Calculator.locations.Clear();
             Calculator.profits.Clear();
-            System.Console.WriteLine("Updated everything."); 
+            System.Console.WriteLine("Updated everything.");
             SaveProgress();       
         }
 
@@ -229,6 +273,65 @@ namespace polypolServer
                 month++;
             }
             System.IO.File.WriteAllText(System.IO.Directory.GetCurrentDirectory() + "/progress.txt", $"{year} {month}");
+        }
+
+        private static string GetMonth(int month){
+            string name;
+            switch (month)
+            {
+                case 1:
+                    name = "January";
+                    break;
+
+                case 2:
+                    name = "February";
+                    break;
+                
+                case 3: 
+                    name = "March";
+                    break;
+                
+                case 4:
+                    name = "April";
+                    break;
+
+                case 5:
+                    name = "May";
+                    break;
+
+                case 6:
+                    name = "June";
+                    break;
+
+                case 7:
+                    name = "July";
+                    break;
+
+                case 8:
+                    name = "August";
+                    break;
+                
+                case 9:
+                    name = "September";
+                    break;
+                
+                case 10:
+                    name = "October";
+                    break;
+                
+                case 11: 
+                    name = "November";
+                    break;
+                
+                case 12:
+                    name = "December";
+                    break;
+
+                default:
+                    name = "January";
+                    break;
+            }
+            return name;
         }
     }
 }

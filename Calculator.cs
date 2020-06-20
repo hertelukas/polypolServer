@@ -58,8 +58,6 @@ namespace polypolServer{
             }
             demand *= monthBonus;
 
-            //TODO write Logging script
-
             foreach (var branch in branches)
             {
                 beds += branch.beds;
@@ -89,11 +87,11 @@ namespace polypolServer{
 
                 double profit = 0.2f * (branch.beds * factor * supply - Math.Pow(branch.priceFactor, 2) * 0.3f * branch.beds * factor * supplyFine) * 
                 (rnd.NextDouble() / 10 + 0.95) * branch.priceFactor - staffExpenses - interiorExpenses;
+                if(profit > 0) profit *= 0.5;
 
                 double tax = 2 * profit * ((float)location.value / (10000 * ((branch.stars + 1) / 2)));
                 if(tax > 0.5 * profit) tax = 0.5 * profit;
                 if(profit < 0) tax  = 0;
-                else profit *= 0.5; 
                 profit -= tax;
 
                 if(profit < tax + staffExpenses + interiorExpenses) profit = 0 - tax - staffExpenses - interiorExpenses;
