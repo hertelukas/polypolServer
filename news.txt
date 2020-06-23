@@ -118,3 +118,19 @@ John F. Kennedy elected as President in a narrow contest over his competitor Ric
 1.0025
 Olympics held in Rome
 Rome briefly gains more visitors due to the 1960 Olympic Games.
+1961 6
+1.005
+Air travel is becoming more popular
+The popularity of jet travel is growing in popularity in both domestic and international travel.
+1963 1
+1.01
+Unemployment rate decreases in the U.S.
+After reaching a maximum of 6.2 percent, the unemployment rate is slowly beginning to fall again.
+1963 11
+1
+President Kennedy assassinated in Dallas
+The American President John F. Kennedy is assassinated.
+1964 4
+1.075
+World's Fair held in New York
+The world's fair is held in new york for a couple of months in New York.
