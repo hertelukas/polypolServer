@@ -180,7 +180,7 @@ namespace polypolServer
 
                 if(user.accountant) tempProfit -= 14000;
                 if(user.banker) tempProfit -= 11000;
-                if(user.salesperson) tempProfit -= 10500;
+                if(user.salesperson) tempProfit -= 45000;
                 if(user.loansRemaining > 0) {
                     tempProfit -= user.toPay;
                     user.loansRemaining--;

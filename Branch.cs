@@ -15,5 +15,6 @@ namespace polypolServer{
         public int? renovation { get; set; }
         public int __v { get; set; }
         public bool autorenovate { get; set; }
+        public bool salesperson { get; set; }
     }
 }
