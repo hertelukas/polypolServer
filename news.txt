@@ -35,7 +35,7 @@ Despite high unemployment and inflation, the economy is recovering faster than e
 Europe gets financial aid
 U.S. Congress ratifies Marshall Plan, approving $17 billion in European aid. Furthermore the state of Isreal is created and admits over 200'000 European war refugees.
 1948 5
-0.99
+0.96
 USA still struggling with inflation
 U.S. continues to cope with severe postwar inflation while rocked by labor unrest. This will also lead to further declines in bookings in the hotel sector.
 1949 1
@@ -58,3 +58,63 @@ The growing middle class, especially in Europe, is discovering more and more tha
 1.1
 Long air journeys are establishing themselves all over the world 
 Jet passenger service is inaugurated between London and Johannesburg, South Africa. This results in the longest passenger flight in the world.
+1952 4
+1.05
+Economy booming, also in the US
+The global economy is booming. The times remind of the golden 20's and the war seems to be forgotten in the tourism industry
+1953 2
+1.025
+USA and Russia rearm militarily
+More and more people can afford travel and holidays
+1953 9
+1.0125
+Technological progress eases travelling
+The rapid technological boom makes travelling more pleasant, faster and cheaper.
+1954 10
+1.05
+Booming economy
+New York Stock Exchange prices reach their highest level since 1929!
+1955 2
+1.03
+Rapid expansion of hotel and motel chains in the United States 
+Tourism increases worldwide, Americans are beginning to catch up with the Europeans. Especially national tourism is booming in the USA, only few Americans have passports or have enough money to afford intercontinental travel.,
+1956 3
+1.02
+Consumerism takes off
+More and more cars are sold, mainly in the USA. This also helps the tourism sector. Mc Donalds opens its first store and fast food gains popularity.
+1956 5
+1.011
+Interstate highway system authorized
+The interstate highway system in the U.S. gets authorized and makes travelling easier and faster. In other countires similar tendencies can be observed.
+1957 2
+0.98
+World economy stagnates slightly
+The world economy stagnates slightly and has a minor impact on the tourism sector.
+1957 3
+1.005
+European Common Market created
+On 25 March 1957, France, Italy, the Netherlands, Belgium, West Germany and Luxembourg sign a Treaty establishing the European Economic Community EEC in Rome.
+1957 10
+1
+Soviet Union launches Sputnik I
+With the launch of Sputnik I, the world's first artificial satellite, the Soviet Union heralds the "space age". One month later, Sputnik II puts a dog into orbit and makes this dog the first living being to enter space.
+1958 1
+1
+EEC comes into operation
+The European Common Market comes into action and unites Europe further.
+1958 7
+0.985
+Economic slowdown in U.S. causes rise in unemployment
+Higher unemployment has a minor impact on the tourism sector.
+1959 5
+1.06
+Economy recovers
+The economy continues to grow at its usual pace, making up for the losses of the previous year.
+1960 11
+1
+John F. Kennedy elected president
+John F. Kennedy elected as President in a narrow contest over his competitor Richard Nixon.
+1960 7
+1.0025
+Olympics held in Rome
+Rome briefly gains more visitors due to the 1960 Olympic Games.
