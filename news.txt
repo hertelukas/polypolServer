@@ -10,3 +10,51 @@ The summer months in the northern hemisphere are coming and an increase in touri
 1.02
 Middle class can afford to travel!
 The slowly recovering economy also allows the middle class in Europe and America to afford trips. The forecasts for this summer seem quite promising. Germany surrenders.
+1945 8
+0.9
+Global horror
+Worldwide the number of visitors is reacting to the latest events of the Second World War.
+1945 9
+1.1
+End of the Second World War
+The World War II is over after Japan surrenders. Tourism worldwide is reacting positively to the good news.
+1946 6
+1.01
+Mass tourism as a new phenomenon 
+More and more mass tourism is offered worldwide. The hotel business continues to flourish on a small scale.
+1947 2
+0.98
+Slight decline in tourism figures in Europe
+Contrary to forecasts, the number is declining minimally in Europe. Experts attribute the decline to bad weather.
+1947 4
+1.015
+The global economy is recovering faster than expected.
+Despite high unemployment and inflation, the economy is recovering faster than expected. People are enjoying the new sense of security.
+1948 3
+1
+Europe gets financial aid
+U.S. Congress ratifies Marshall Plan, approving $17 billion in European aid. Furthermore the state of Isreal is created and admits over 200'000 European war refugees.
+1948 5
+0.99
+USA still struggling with inflation
+U.S. continues to cope with severe postwar inflation while rocked by labor unrest. This will also lead to further declines in bookings in the hotel sector.
+1949 1
+1.013
+Structure slowly returns to the world
+Countries like Vietnam and Indonesia are granted sovereignty, while Germany and East Germany are formally established as nations. U.S. Air Force’s Lucky Lady completes first non-stop around-the-world flight.
+1950 1
+1.0125
+First credit card
+Diners Club introduces the first credit card. The global economy continues to recover.
+1950 11
+0.995
+Still unstable economic situation in the United States of America
+In In the USA major protests are taking place due to high unemployment.
+1951 3
+1.05
+Tourism gains attractiveness slightly
+The growing middle class, especially in Europe, is discovering more and more that travel is for them. Journeys are booked worldwide, mass tourism is booming.
+1952 1
+1.1
+Long air journeys are establishing themselves all over the world 
+Jet passenger service is inaugurated between London and Johannesburg, South Africa. This results in the longest passenger flight in the world.
