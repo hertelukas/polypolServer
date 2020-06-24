@@ -85,7 +85,7 @@ More and more cars are sold, mainly in the USA. This also helps the tourism sect
 1956 5
 1.011
 Interstate highway system authorized
-The interstate highway system in the U.S. gets authorized and makes travelling easier and faster. In other countires similar tendencies can be observed.
+The interstate highway system in the U.S. gets authorized and makes travelling easier and faster. In other countries similar tendencies can be observed.
 1957 2
 0.98
 World economy stagnates slightly
@@ -134,3 +134,63 @@ The American President John F. Kennedy is assassinated.
 1.075
 World's Fair held in New York
 The world's fair is held in new york for a couple of months in New York.
+1965 2
+1
+The first U.S. combat troops arrive in Vietnam
+The first U.S. combat troops arrive in Vietnam
+1966 6
+1.02
+Economy is growing
+The world economy grows while France withdraws its forces from NATO.
+1966 9
+1
+The first Stark Trek episode is launches
+"The Man Trap" is the first Star Trak episode launching on September 8.
+1967 12
+1.01
+First successfull human heart transplant
+A team of South African surgeons perform the first successfull heart transplant. The patient dies a couple of days later. Tourism numbers are growing continuesly.
+1968 7
+1.032
+Nuclear nonproliferation treaty signed
+The United Stated, the USSR and about 100 other countries sign the nuclear nonproliferation treaty (NPT).
+1968 12
+1.02
+Prototype of the first supersonic airliner
+The Soviet-designed Tupolev Tu-144 made its first successfull flight, not yet reaching supersonic speed
+1969 7
+1
+That's one small step for man, one giant leap for mankind
+Neil Armstrong and Buzz Aldrin become the first humans to walk on the moon.
+1970 2
+1.06
+US GDP over $1,000 billion
+The US GDP reaches over a trillion and is a sign of the rising economy.
+1970 4
+1
+The Beatles break up
+The English rock band consisting of John Lennon, Paul McCartney, George Harrison and Ringo Starr break up.
+1971 3
+1.012
+First microprocessor
+Intel released the first microprocessor, the Intel 4004, a 4 bit CPU.
+1973 1
+1.05
+The European Common Market grows.
+Great Britain, Ireland and Denmark enter EEC.
+1973 10
+0.95
+Oil Crisis
+The members of the Organization of Arab Petroleum Exporting Countries proclaimed an oil embargo.
+1974 3
+0.97
+Oil crisis ends
+The embargo ends with oil prises nearly 4 times higher globally. The US prices are significantly higher.
+1975 2
+1.08
+World economy recovers
+The world economy recovers form the 1973 oil crisis
+1976 3
+1.03
+Supersonic Transport in Europe
+Air France and British Airways begin the first regularly scheduled commercial supersonic transport (SST) flights.
