@@ -194,3 +194,39 @@ The world economy recovers form the 1973 oil crisis
 1.03
 Supersonic Transport in Europe
 Air France and British Airways begin the first regularly scheduled commercial supersonic transport (SST) flights.
+1977 1
+1.02
+US GDP over 2,000 billion
+US GDP reaches a new high of over 2,000 billion.
+1979 6
+1.01
+First human powered aircraft flies across the English Channel
+Bryan Allen is the first human who pilots the Gossamer Albatross from Fokestone, England, to Cap Gris-Nez, France.
+1980 4
+0.995
+US breaks diplomatic ties with Iran
+The US breaks all diplomatic ties with after six hostages escape from Iran in January.
+1980 12
+1.002
+John Lennon dead
+Beatles member John Lennen shot dead in New York.
+1981 8
+1.003
+Despite high unemployment rate, GDP is rising
+The US GDP reaches $3,000 billion while unemployment rate is at 7.6%.
+1982 11
+0.999
+Michael Jackson releases Thriller
+Thriller selles more then 25 million copies, most sold album in history, while unemployment rate reaches 9.7% in the US.
+1983 4
+0.985
+The Iran-Iraq war and it's impact on economy
+The Iran-Iraq war leads to instability in the world economy and to lower tourism numbers.
+1984 12
+1.03
+Economy stabilises
+The economy is recovering.
+1985 11
+0.999
+59 dead after terrorists seize airplane
+Terrorists seize an Egyptian Boeing 737 after takeoff from Athens.

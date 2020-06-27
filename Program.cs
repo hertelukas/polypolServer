@@ -25,10 +25,10 @@ namespace polypolServer
                 Data.NewCalculation();
                 Calculator.profits.Clear();
 
-                // MongoClient dbClient = new MongoClient("mongodb://lukas:j*2D5TVi@localhost:27017/sampledb?authSource=test&readPreference=primary&appname=MongoDB%20Compass&ssl=false");
-                MongoClient dbClient = new MongoClient("mongodb://localhost:27017/zivi?readPreference=primary&appname=MongoDB%20Compass&ssl=false");
-                // var database = dbClient.GetDatabase("sampledb");
-                var database = dbClient.GetDatabase("game");
+                MongoClient dbClient = new MongoClient("mongodb://lukas:j*2D5TVi@localhost:27017/sampledb?authSource=test&readPreference=primary&appname=MongoDB%20Compass&ssl=false");
+                // MongoClient dbClient = new MongoClient("mongodb://localhost:27017/zivi?readPreference=primary&appname=MongoDB%20Compass&ssl=false");
+                var database = dbClient.GetDatabase("sampledb");
+                // var database = dbClient.GetDatabase("game");
                 HandleNews(database);
                 UpdateBranches(database);
                 UpdateLocations(database);
@@ -164,6 +164,7 @@ namespace polypolServer
                 doc.Remove("autorenovate");
                 doc.Remove("sponsor");
                 doc.Remove("sponsorMessage");
+                doc.Remove("bestNetWorth");
                 users.Add(BsonSerializer.Deserialize<User>(doc));
             }
 
