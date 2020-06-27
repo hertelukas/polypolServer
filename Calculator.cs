@@ -91,7 +91,7 @@ namespace polypolServer{
                 double profit = 0.2f * (branch.beds * factor * supply - Math.Pow(branch.priceFactor, 2) * occupancyFactor * branch.beds * factor * supplyFine) * 
                 (rnd.NextDouble() / 10 + 0.95) * branch.priceFactor - staffExpenses - interiorExpenses;
                 
-                if(profit > 0) profit *= 0.5;
+                if(profit > 0) profit = profit * 0.5;
 
 
                 double tax = 2 * profit * ((float)location.value / (10000 * ((branch.stars + 1) / 2)));
@@ -99,7 +99,7 @@ namespace polypolServer{
                 if(profit < 0) tax  = 0;
                 profit -= tax;
 
-                if(profit < tax + staffExpenses + interiorExpenses) profit = 0 - tax - staffExpenses - interiorExpenses;
+                if(profit < -1 * (tax + staffExpenses + interiorExpenses) && profit < 0) profit = 0 - tax - staffExpenses - interiorExpenses;
 
                 branch.renovation -= 1;
 
