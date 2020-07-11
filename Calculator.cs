@@ -13,7 +13,7 @@ namespace polypolServer{
             Location location = locations.Find(x => x.city == city);
 
             int beds = 0;
-            float demand = location.visitors;
+            float demand = (float)location.visitors;
             int value = location.value;
 
             float monthBonus = 1f;
