@@ -230,3 +230,51 @@ The economy is recovering.
 0.999
 59 dead after terrorists seize airplane
 Terrorists seize an Egyptian Boeing 737 after takeoff from Athens.
+1986 1
+1.0025
+Spain and Portugal join the EEC
+On the first of january, Spain and Portugal join the European Economic Community.
+1986 4
+0.99
+Nuclear accident in chernobyl
+In the north of the Ukrainian SSR a nuclear accident leads to the first nuclear disaster.
+1988 5
+1.03
+US GDP rises above $5,000
+The GDP of the USA is growing constantly. The rest of the world is also experiencing an economic upswing.
+1988 12
+0.995
+270 deaths after terroristic act
+Pan-Am 747 explodes from terrorist bomb and crashes in Scotland. 259 passengers and 11 on ground die. People are more afraid of international travel in the short term.
+1989 7
+1.02
+Fist WWW Server
+The first World Wide Web server and browser is developed by the English computer scientist Tim Berners-Lee while working at CERN.
+1990 8
+1.03
+East and West Germany reunited
+West and East Germany are reunited again on August 31 
+1992 2
+1.024
+US lifts sanctions
+US lifts trade sanctions agains China
+1992 12
+1.015
+NAFTA signed
+The North American Free Trade Agreement (NAFTA) is signed and allows easy trading between Canada and the US.
+1993 11
+1.06
+Beginning of the European Union
+The Maastricht Treaty takes effect and is creating the European Union, after UK approves European unity pact in May.
+1994 4
+1.005
+Nelson Mandela elected President
+In South Africa Nelson Mandela gets elected as President, after holding the first interracial election.
+1996 5
+1.002
+Millions of people are using the internet
+About 45 million people are using the internet worldwide, most of them in North America.
+1998 5
+1.005
+Europeans agree on the euro
+The euro is the new currency in Europe. 
